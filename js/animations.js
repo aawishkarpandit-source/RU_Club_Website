@@ -79,24 +79,21 @@ const Animations = {
     burstLeaves(target) {
         if (this._bursting) return;
         this._bursting = true;
-        console.info('🌿 Easter egg activated! Double-leaf burst incoming!');
+        console.info('🌿 Easter egg activated!');
         const rect = target.getBoundingClientRect();
         const cx = rect.left + rect.width / 2 + window.scrollX;
         const cy = rect.top + rect.height / 2 + window.scrollY;
         const colors = ['#0D9488', '#14B8A6', '#CCFBF1', '#059669', '#34D399', '#A7F3D0'];
+        const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="COLOR" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.9C15.5 4.9 17 3.5 19 2c1 2 2 4.5 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>';
         const leaves = [];
 
         for (let i = 0; i < 30; i++) {
-            const leaf = document.createElement('div');
-            const size = 8 + Math.random() * 14;
-            leaf.style.cssText = `
-                position: fixed; width:${size}px; height:${size}px;
-                background:${colors[Math.floor(Math.random() * colors.length)]};
-                border-radius:${Math.random() > 0.5 ? '50% 0 50% 0' : '0 50% 0 50%'};
-                left:${cx - size / 2}px; top:${cy - size / 2}px;
-                pointer-events:none; z-index:9999;
-                opacity:1;
-            `;
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            const size = 18 + Math.random() * 16;
+            const wrap = document.createElement('div');
+            wrap.innerHTML = svg.replace('COLOR', color);
+            const leaf = wrap.firstElementChild;
+            leaf.style.cssText = `position:fixed;width:${size}px;height:${size}px;left:${cx - size / 2}px;top:${cy - size / 2}px;pointer-events:none;z-index:9999;opacity:1;`;
             document.body.appendChild(leaf);
             leaves.push(leaf);
 
