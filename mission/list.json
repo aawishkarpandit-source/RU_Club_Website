@@ -11,6 +11,18 @@
       "imageCount": 19,
       "featured": "mission/basundharapark/img1.jpg",
       "show": true
+    },
+    {
+      "id": "recycling-upcycling-training",
+      "slug": "recycling-upcycling-training",
+      "title": "Recycling & Upcycling Training Program",
+      "tag": "Mission #02",
+      "date": "May 2026",
+      "description": "Three-school training on Recycling and Upcycling with Doko Recyclers, supported by the Government of Nepal and KOICA.",
+      "detail": "In Pokhara-7 Masbar, Motherland Secondary School conducted an event attended by two other schools for gaining knowledge on Recycling and Upcycling, with the support of the Government of Nepal, KOICA and Doko Recyclers.\n\nThe training went from 10:45 AM to 3:50 PM, spanning 5 hours and 5 minutes. Trainers from Doko Recyclers gave the basics to students from Motherland Secondary School, Shree Tal Barahi Secondary School, and Shree Barahi Secondary School. The students distinguished between waste materials and learned solutions to these problems.\n\nThe training included a practical work divided into two halves following the 7R's rule: separating waste materials by type and recyclability, and using different wastes to create art (upcycling). The students produced astonishing results beyond what mentors expected. With minimal training from Chillionaire Productions, they showcased pieces belonging in an art museum.",
+      "imageCount": 10,
+      "featured": "mission/recycling-upcycling-training/B1P1.jpg",
+      "show": true
     }
   ]
 }

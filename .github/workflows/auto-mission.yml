@@ -16,7 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pull-requests: write
 
     steps:
       - uses: actions/checkout@v4
@@ -26,78 +25,49 @@ jobs:
       - name: Scan mission folders and update data
         run: |
           LIST="mission/list.json"
-
-          # Initialize or reset list
           echo '{"missions":[]}' > "$LIST"
 
           for dir in mission/*/; do
             [ -d "$dir" ] || continue
             folder=$(basename "$dir")
+            # Skip hidden folders and list.json itself
+            [[ "$folder" == .* ]] && continue
             info="$dir/info.json"
-            featured_img=$(ls "$dir"*.jpg "$dir"*.png "$dir"*.jpeg "$dir"*.webp 2>/dev/null | head -1)
-            [ -z "$featured_img" ] && continue
+            [ -f "$info" ] || continue
 
-            slug=$(echo "$folder" | sed 's/_/-/g' | tr '[:upper:]' '[:lower:]')
+            # Generate clean slug from folder name
+            slug=$(echo "$folder" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' | sed 's/--*/-/g' | sed 's/^-//;s/-$//')
 
-            if [ -f "$info" ]; then
-              title=$(jq -r '.title // "New Mission"' "$info")
-              tag=$(jq -r '.tag // "Mission"' "$info")
-              date=$(jq -r '.date // ""' "$info")
-              desc=$(jq -r '.description // ""' "$info")
-              detail=$(jq -r '.detail // ""' "$info")
-              featured=$(jq -r '.featured // "'"$dir$(basename "$featured_img")"'"' "$info")
-              show=$(jq -r '.show // true' "$info")
+            title=$(jq -r '.title // "New Mission"' "$info")
+            tag=$(jq -r '.tag // "Mission"' "$info")
+            date=$(jq -r '.date // ""' "$info")
+            desc=$(jq -r '.description // ""' "$info")
+            detail=$(jq -r '.detail // ""' "$info")
+
+            # Pick first image as featured
+            img_list=$(jq -r '.images[]' "$info" 2>/dev/null | head -1)
+            if [ -z "$img_list" ]; then
+              img_list=$(ls "$dir"*.jpg "$dir"*.png "$dir"*.jpeg "$dir"*.webp 2>/dev/null | head -1)
+              [ -n "$img_list" ] && featured="mission/$folder/$(basename "$img_list")" || featured=""
             else
-              title="New Mission ($folder)"
-              tag="Mission"
-              date=$(date +"%B %Y")
-              desc="New environmental mission by RU Club Motherland."
-              detail="Details coming soon."
-              featured="mission/$folder/$(basename "$featured_img")"
-              show=true
-
-              jq -n \
-                --arg id "$folder" \
-                --arg slug "$slug" \
-                --arg title "$title" \
-                --arg tag "$tag" \
-                --arg date "$date" \
-                --arg desc "$desc" \
-                --arg detail "$detail" \
-                --arg featured "$featured" \
-                --argjson show "$show" \
-                '{id:$id, slug:$slug, title:$title, tag:$tag, date:$date, description:$desc, detail:$detail, featured:$featured, show:$show, images:[]}' > "$info"
-
-              echo "Created placeholder info.json for $folder"
+              featured="mission/$folder/$img_list"
             fi
+            [ -z "$featured" ] && continue
 
-            # Scan images
-            img_list=$(ls "$dir"*.jpg "$dir"*.png "$dir"*.jpeg "$dir"*.webp 2>/dev/null | while read f; do
-              basename "$f"
-            done | jq -R -s 'split("\n") | map(select(length > 0))')
+            img_count=$(jq '.images | length' "$info" 2>/dev/null || echo 0)
+            show=$(jq '.show // true' "$info")
 
-            img_count=$(echo "$img_list" | jq 'length')
-
-            # Update info.json with images
-            jq --argjson imglist "$img_list" '.images = $imglist' "$info" > tmp.json && mv tmp.json "$info"
-
-            # Build list entry
-            entry=$(jq -n \
-              --arg id "$folder" \
-              --arg slug "$slug" \
-              --arg title "$title" \
-              --arg tag "$tag" \
-              --arg date "$date" \
-              --arg desc "$desc" \
-              --arg detail "$detail" \
-              --argjson imgcount "$img_count" \
-              --arg featured "$featured" \
-              --argjson show "$show" \
-              '{id:$id, slug:$slug, title:$title, tag:$tag, date:$date, description:$desc, detail:$detail, imageCount:$imgcount, featured:$featured, show:$show}'
-            )
-
-            tmp=$(mktemp)
-            jq --argjson entry "$entry" '.missions += [$entry]' "$LIST" > "$tmp" && mv "$tmp" "$LIST"
+            jq --arg id "$folder" \
+               --arg slug "$slug" \
+               --arg title "$title" \
+               --arg tag "$tag" \
+               --arg date "$date" \
+               --arg desc "$desc" \
+               --arg detail "$detail" \
+               --argjson imgcount "$img_count" \
+               --arg featured "$featured" \
+               --argjson show "$show" \
+               '.missions += [{id:$id, slug:$slug, title:$title, tag:$tag, date:$date, description:$desc, detail:$detail, imageCount:$imgcount, featured:$featured, show:$show}]' "$LIST" > tmp.json && mv tmp.json "$LIST"
           done
 
           echo "Mission scan complete."
@@ -107,7 +77,7 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git add -A
-          if ! git diff --quiet && git diff --staged --quiet; then
+          if ! git diff --quiet HEAD; then
             git commit -m "auto: discover and register new missions"
             git push
             echo "Changes committed and pushed."
