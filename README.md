@@ -68,21 +68,29 @@ RU Club Motherland is a student-led environmental initiative at Motherland Secon
 ├── info/                   → JSON data files (content, members, stats, etc.)
 ├── components/             → header.html, footer.html (loaded via JS)
 ├── mission/                → Per-mission folders with images + info.json
-│   └── list.json           → Auto-generated mission manifest
+│   ├── list.json           → Auto-generated mission manifest
+│   └── README.md           → Mission management guide
+├── announcements/          → Club announcements and notices
+│   ├── list.json           → Announcement manifest
+│   ├── main/               → Individual announcement JSON files
+│   └── README.md           → Announcement management guide
 │
-├── .github/workflows/      → auto-mission.yml
-├── vercel.json             → Clean URLs, rewrites, caching, security headers
+├── .github/workflows/      → auto-mission.yml, auto-announcements.yml
+├── vercel.json             → Vercel config (Clean URLs, security, caching)
+├── _redirects              → Cloudflare Pages config (Clean URLs, redirects)
 ├── sitemap.xml             → Search engine sitemap (clean URLs)
 └── robots.txt              → Crawler directives
 ```
 
 ## Pages & URLs
 
-All URLs are clean (no `.html` extension) — handled by Vercel's `cleanUrls` feature.
+All URLs are clean (no `.html` extension) — handled by Vercel's `cleanUrls` and Cloudflare's `_redirects`.
 
 | Page | Route | Description |
 |---|---|---|
 | Home | `/` | Hero, stats, featured mission, CTA |
+| Announcements | `/announcements` | List of latest club updates |
+| Announcement | `/announcement?id=slug` | Single announcement detail |
 | Missions | `/missions` | All missions grid + carousel |
 | Mission Detail | `/mission?id=slug` | Single mission with gallery |
 | Members | `/members` | Team roster (teachers + students) |

@@ -21,36 +21,47 @@ RU Club Motherland is a static HTML/CSS/JS site for an environmental sustainabil
 ├── info/                  → JSON data (content, members, stats, etc.)
 ├── components/            → header.html + footer.html (loaded by components.js)
 ├── mission/               → Per-mission folders with images + info.json
-├── .github/workflows/     → auto-mission.yml
-├── vercel.json            → cleanUrls, security headers, caching
+├── announcements/         → Per-announcement JSON files
+├── .github/workflows/     → auto-mission.yml, auto-announcements.yml
+├── vercel.json            → Clean URLs, security headers, caching
+├── _redirects             → Cloudflare Pages routing & redirects
 ├── sitemap.xml            → Clean URLs
 └── robots.txt
-```
 
 ## Data Flow
-1. `components.js` fetches `/components/header` and `/components/footer` into placeholders
+1. `components.js` fetches `/components/header.html` and `/components/footer.html` into placeholders
 2. `main.js` triggers data loading per page
-3. `missions.js` loads `mission/list.json` then per-mission `info.json`
-4. `data-loader.js` loads stats, partners, members, content from `/info/*.json`
+3. `missions.js` loads `/mission/list.json` then per-mission `/mission/[id]/info.json`
+4. `announcements.js` loads `/announcements/list.json` then per-announcement `/announcements/main/[id].json`
+5. `data-loader.js` loads stats, partners, members, content from `/info/*.json`
 
 ## Adding a New Mission
 1. Create folder: `mission/your-mission-name/`
 2. Drop images + `info.json` inside
 3. Push to `main` — GitHub workflow auto-updates `list.json`
+4. See `mission/README.md` for full details.
+
+## Adding a New Announcement
+1. Create JSON: `announcements/main/your-announcement.json`
+2. Push to `main` — GitHub workflow auto-updates `list.json`
+3. See `announcements/README.md` for full details.
 
 ## Key Conventions
-- All icons are SVG files in `static/assets/icons/` — never hardcode SVGs in HTML/JS
-- All text content lives in `info/*.json` — edit JSON, not HTML
-- New missions need `show: true` in `list.json` to appear on the site
+- All icons are SVG files in `/static/assets/icons/` — never hardcode SVGs in HTML/JS
+- All text content lives in `/info/*.json` — edit JSON, not HTML
+- All paths (assets, data, links) MUST be absolute (starting with `/`) for reliability across hosting providers
+- New missions/announcements need `show: true` or `active: true` to appear
 - `.icon-current` class for icons that inherit text color
 - `.social-icon` class for brand-colored social media icons
-- All pages use clean URLs (no `.html` extension) — Vercel `cleanUrls` handles routing
+- All pages use clean URLs (no `.html` extension) — Vercel `cleanUrls` and Cloudflare `_redirects` handle routing
 - GA4 ID in `static/js/analytics.js:15` — single source of truth
 
 ## Build/Deploy
 - No build step — pure static files
 - Vercel auto-deploys from `main` branch
-- `vercel.json` configures clean URLs, security headers, caching
+- Cloudflare Pages auto-deploys from `main` branch
+- `vercel.json` configures clean URLs, security headers, caching for Vercel
+- `_redirects` configures clean URLs and trailing slash behavior for Cloudflare
 
 ## SEO
 - robots.txt, sitemap.xml (clean URLs), canonical URLs, OG/Twitter tags on all pages
