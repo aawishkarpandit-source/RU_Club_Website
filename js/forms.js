@@ -37,14 +37,13 @@ const Forms = {
 
             const data = new FormData(form);
 
-            await Promise.allSettled([
+            const results = await Promise.allSettled([
                 fetch(form.action, { method: 'POST', body: data, mode: 'no-cors' }),
                 fetch(this.OLD_FORM_ENDPOINT, { method: 'POST', body: data, mode: 'no-cors' })
             ]);
 
-            btn.textContent = 'Sent!';
-            form.reset();
-            setTimeout(() => { btn.textContent = 'Send Message'; btn.disabled = false; }, 3000);
+            const allOk = results.every(r => r.status === 'fulfilled');
+            window.location.href = allOk ? 'success.html' : 'failed.html';
         });
     }
 };
