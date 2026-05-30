@@ -57,19 +57,26 @@ const Animations = {
     setupEasterEgg() {
         const poll = () => {
             const cells = document.querySelectorAll('td');
-            let row = null;
-            cells.forEach(c => { if (c.textContent.includes('Sincere')) row = c.closest('tr'); });
-            if (!row) { setTimeout(poll, 300); return; }
+            let cell = null;
+            cells.forEach(c => { if (c.textContent.includes('Sincere')) cell = c; });
+            if (!cell) { setTimeout(poll, 300); return; }
 
-            row.title = '🌿';
-            row.style.cursor = 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 24 24\'%3E%3Ctext y=\'18\' font-size=\'18\'%3E🌿%3C/text%3E%3C/svg%3E") 12 12, pointer';
+            cell.title = '🌿';
+            cell.style.cursor = 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 24 24\'%3E%3Ctext y=\'18\' font-size=\'18\'%3E🌿%3C/text%3E%3C/svg%3E") 12 12, pointer';
 
-            row.addEventListener('dblclick', () => { window.location.href = 'secret-garden.html'; });
+            cell.addEventListener('click', (e) => {
+                e.stopPropagation();
+                window.location.href = 'secret-garden.html';
+            });
 
             let lastTap = 0;
-            row.addEventListener('touchend', (e) => {
+            cell.addEventListener('touchend', (e) => {
                 const now = Date.now();
-                if (now - lastTap < 300) { window.location.href = 'secret-garden.html'; e.preventDefault(); }
+                if (now - lastTap < 300) {
+                    e.stopPropagation();
+                    window.location.href = 'secret-garden.html';
+                    e.preventDefault();
+                }
                 lastTap = now;
             });
         };
