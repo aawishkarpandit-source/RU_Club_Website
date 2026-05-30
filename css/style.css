@@ -119,6 +119,58 @@ h4 { font-size: 1.35rem; }
     h2 { font-size: 2rem; }
     h3 { font-size: 1.5rem; }
     h4 { font-size: 1.2rem; }
+    section { padding: 3.5rem 0; }
+    .container { padding: 0 1rem; }
+}
+
+@media (max-width: 480px) {
+    body { font-size: 15px; }
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.65rem; }
+    h3 { font-size: 1.3rem; }
+    h4 { font-size: 1.1rem; }
+    section { padding: 2.5rem 0; }
+    .container { padding: 0 0.85rem; }
+    .hero-badge { padding: 0.5rem 1rem; margin-bottom: 1.5rem; }
+    .hero-badge-text { font-size: 0.7rem; }
+    .hero-title { font-size: clamp(2.2rem, 12vw, 3.25rem); margin-bottom: 1rem; }
+    .hero-subtitle { font-size: 0.95rem; margin-bottom: 1.75rem; }
+    .btn-primary, .btn-secondary { padding: 0.85rem 1.75rem; font-size: 0.85rem; }
+    .hero-buttons { gap: 0.75rem; }
+    .page-header { padding: calc(var(--header-height) + 3.5rem) 0 2.5rem; }
+    .page-title { font-size: clamp(2rem, 10vw, 2.75rem); }
+    .page-subtitle { font-size: 1rem; padding: 0 0.5rem; }
+    .gallery-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+    .stats-grid { gap: 1.25rem; }
+    .stat-number { font-size: 2rem; }
+    .stat-label { font-size: 0.8rem; }
+    .features-grid { gap: 1.25rem; }
+    .feature-card { padding: 1.75rem 1.25rem; }
+    .feature-title { font-size: 1.15rem; }
+    .contact-grid { padding: 1.5rem; }
+    .contact-info { padding: 2rem 1.25rem; }
+    .contact-form { padding: 2rem 1.25rem; }
+    .footer-grid { gap: 2rem; }
+    .footer-brand { max-width: 100%; }
+    .footer-social a { width: 40px; height: 40px; }
+    .cookie-consent { padding: 1.5rem; max-width: calc(100% - 1rem); }
+    .cookie-title { font-size: 1.05rem; }
+    .missions-grid { grid-template-columns: 1fr !important; }
+    .mission-gallery-grid { grid-template-columns: 1fr !important; }
+    #mobile-menu .nav-link { font-size: 1.35rem; }
+    .scroll-top-btn { bottom: 1rem; right: 1rem; width: 40px; height: 40px; }
+}
+
+@media (max-width: 360px) {
+    .container { padding: 0 0.65rem; }
+    .hero-title { font-size: 1.8rem; }
+    .hero-badge { padding: 0.4rem 0.75rem; }
+    .hero-buttons { flex-direction: column; align-items: center; }
+    .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+    .stats-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .footer-logo { width: 42px; height: 42px; }
+    .footer-brand-name { font-size: 1.1rem; }
+    .gallery-grid { min-width: 0; }
 }
 
 a {

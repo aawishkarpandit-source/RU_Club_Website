@@ -31,9 +31,33 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://ruclubmotherland.vercel.app/mission.html?id=basundhara-park-cleanup</loc>
+    <loc>https://ruclubmotherland.vercel.app/mission.html</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ruclubmotherland.vercel.app/privacy.html</loc>
     <lastmod>2026-05-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://ruclubmotherland.vercel.app/consent.html</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://ruclubmotherland.vercel.app/license.html</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://ruclubmotherland.vercel.app/404.html</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.1</priority>
   </url>
 </urlset>
