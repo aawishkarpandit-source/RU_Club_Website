@@ -41,8 +41,8 @@ const Components = {
 
     async loadComponents() {
         await Promise.all([
-            this.loadComponent('header-placeholder', '/components/header'),
-            this.loadComponent('footer-placeholder', '/components/footer')
+            this.loadComponent('header-placeholder', '/components/header.html'),
+            this.loadComponent('footer-placeholder', '/components/footer.html')
         ]);
 
         this.initAll();

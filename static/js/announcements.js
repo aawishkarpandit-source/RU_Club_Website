@@ -4,7 +4,7 @@ const Announcements = {
   async loadList() {
     if (this.list) return this.list;
     try {
-      const res = await fetch('announcements/list.json');
+      const res = await fetch('/announcements/list.json');
       this.list = await res.json();
       return this.list;
     } catch (e) {
@@ -23,7 +23,7 @@ const Announcements = {
     const entry = this.list.find(a => a.id === id);
     if (!entry) return null;
     try {
-      const res = await fetch(`announcements/main/${id}.json`);
+      const res = await fetch(`/announcements/main/${id}.json`);
       const detail = await res.json();
       return { ...entry, ...detail };
     } catch (e) {

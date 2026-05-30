@@ -4,8 +4,8 @@
   "tagline": "Environmental Sustainability Club",
   "description": "Environmental sustainability club at Motherland Secondary School, Pokhara, Nepal. Transforming awareness into action for a zero-waste ecosystem.",
   "url": "https://ruclubmotherland.vercel.app",
-  "logo": "static/assets/brand/logo.png",
-  "logoIcon": "static/assets/brand/logo_icon.png",
+  "logo": "/static/assets/brand/logo.png",
+  "logoIcon": "/static/assets/brand/logo_icon.png",
   "email": "ruclubmotherland@gmail.com",
   "phone": "+977 9856022256",
   "location": {

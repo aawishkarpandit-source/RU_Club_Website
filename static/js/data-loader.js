@@ -13,11 +13,11 @@ const DataLoader = {
     }
   },
 
-  async getSite() { return this.get('info/site.json'); },
-  async getStats() { return this.get('info/stats.json'); },
-  async getPartners() { return this.get('info/partners.json'); },
-  async getMembers() { return this.get('info/members.json'); },
-  async getContent() { return this.get('info/content.json'); },
+  async getSite() { return this.get('/info/site.json'); },
+  async getStats() { return this.get('/info/stats.json'); },
+  async getPartners() { return this.get('/info/partners.json'); },
+  async getMembers() { return this.get('/info/members.json'); },
+  async getContent() { return this.get('/info/content.json'); },
 
   async renderStats(containerId) {
     const container = document.getElementById(containerId);

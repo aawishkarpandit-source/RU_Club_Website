@@ -4,7 +4,7 @@ const Missions = {
   async load() {
     if (this.data) return this.data;
     try {
-      const res = await fetch('mission/list.json');
+      const res = await fetch('/mission/list.json');
       this.data = await res.json();
       return this.data;
     } catch (e) {
@@ -32,7 +32,7 @@ const Missions = {
     container.innerHTML = missions.map(m => `
       <div class="gallery-card" data-aos="fade-up">
         <div class="gallery-image">
-          <img src="${m.featured}" alt="${m.title}" loading="lazy">
+          <img src="/${m.featured}" alt="${m.title}" loading="lazy">
           <div class="gallery-overlay">
             <a href="/mission?id=${m.slug}" class="btn-primary">View Mission</a>
           </div>
@@ -59,7 +59,7 @@ const Missions = {
 
     for (const m of missions) {
       try {
-        const res = await fetch(`mission/${m.id}/info.json`);
+        const res = await fetch(`/mission/${m.id}/info.json`);
         const info = await res.json();
         if (info.stats) {
           const v = parseInt(info.stats.volunteers) || 0;
@@ -88,12 +88,12 @@ const Missions = {
     const mission = shown[Math.floor(Math.random() * shown.length)];
 
     try {
-      const infoRes = await fetch(`mission/${mission.id}/info.json`);
+      const infoRes = await fetch(`/mission/${mission.id}/info.json`);
       const info = await infoRes.json();
 
       container.innerHTML = info.images.map(img => `
         <div class="swiper-slide">
-          <img src="mission/${mission.id}/${img}" alt="${mission.title} - ${mission.description}" loading="lazy">
+          <img src="/mission/${mission.id}/${img}" alt="${mission.title} - ${mission.description}" loading="lazy">
         </div>
       `).join('');
 
