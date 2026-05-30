@@ -4,7 +4,7 @@
 
 > Transforming environmental awareness into collective action for a sustainable Pokhara.
 
-[![Vercel](https://img.shields.io/badge/deployed%20on-Vercel-000?logo=vercel)](https://ruclubmotherland.vercel.app)
+[![Vercel](https://img.shields.io/badge/deployed%20on-Vercel-000?logo=vercel)](https://ruclubmss.vercel.app)
 [![MIT License](https://img.shields.io/badge/license-MIT-teal)](LICENSE)
 [![GitHub Actions](https://img.shields.io/badge/workflow-auto--discover-brightgreen)](.github/workflows/auto-mission.yml)
 
@@ -14,7 +14,7 @@
 
 RU Club Motherland is a student-led environmental initiative at Motherland Secondary School. We organize tree plantations, waste management drives, community clean-ups, and awareness campaigns — working toward a zero-waste ecosystem in Pokhara.
 
-**Website:** [ruclubmotherland.vercel.app](https://ruclubmotherland.vercel.app)
+**Website:** [ruclubmss.vercel.app](https://ruclubmss.vercel.app)
 
 ## Tech Stack
 
@@ -240,7 +240,7 @@ _Made with ❤️ by Sincere Bhattarai and the RU Club Motherland team._
 
 ### Links
 
-- **Website:** [ruclubmotherland.vercel.app](https://ruclubmotherland.vercel.app)
+- **Website:** [ruclubmss.vercel.app](https://ruclubmss.vercel.app)
 - **GitHub:** [github.com/RU-Club-Motherland](https://github.com/RU-Club-Motherland)
 - **Facebook:** [RU Club Motherland](https://facebook.com/profile.php?id=61585206314774)
 - **Instagram:** [@rucl.ub](https://instagram.com/rucl.ub/)

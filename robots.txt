@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ruclubmotherland.vercel.app/sitemap.xml
+Sitemap: https://ruclubmss.vercel.app/sitemap.xml

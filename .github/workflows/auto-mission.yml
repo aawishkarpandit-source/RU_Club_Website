@@ -93,7 +93,7 @@ jobs:
       - name: Commit and push
         run: |
           git config user.name "Mission Bot"
-          git config user.email "bot@ruclubmotherland.vercel.app"
+          git config user.email "bot@ruclubmss.vercel.app"
           git add mission/list.json mission/*/info.json
           if git diff --cached --quiet; then
             echo "No changes to commit"
