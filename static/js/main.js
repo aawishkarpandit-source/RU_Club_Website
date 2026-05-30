@@ -7,46 +7,51 @@
 
 // Wait for DOM to be ready
 document.addEventListener('DOMContentLoaded', async () => {
-    Components.init();
+    try {
+        Components.init();
 
-    // Load data-driven content (only on pages with matching containers)
-    if (document.getElementById('home-stats')) {
-        await Promise.all([
-            DataLoader.renderStats('home-stats'),
-            DataLoader.renderPartners('home-partners'),
-            DataLoader.renderContent()
-        ]);
-    }
+        // Load data-driven content (only on pages with matching containers)
+        if (document.getElementById('home-stats')) {
+            await Promise.all([
+                DataLoader.renderStats('home-stats'),
+                DataLoader.renderPartners('home-partners'),
+                DataLoader.renderContent()
+            ]);
+        }
 
-    if (document.getElementById('members-teachers')) {
-        await Promise.all([
-            DataLoader.renderMembers('members-teachers', 'teachers'),
-            DataLoader.renderMembers('members-core', 'core'),
-            DataLoader.renderMembers('members-general', 'general')
-        ]);
-    }
+        if (document.getElementById('members-teachers')) {
+            await Promise.all([
+                DataLoader.renderMembers('members-teachers', 'teachers'),
+                DataLoader.renderMembers('members-core', 'core'),
+                DataLoader.renderMembers('members-general', 'general')
+            ]);
+        }
 
-    // Always init partner swiper if container exists
-    if (typeof Carousel !== 'undefined') Carousel.initPartnerSwiper();
+        // Always init partner swiper if container exists
+        if (typeof Carousel !== 'undefined') Carousel.initPartnerSwiper();
 
-    // Load missions carousel — populate slides first, then init Swiper
-    if (document.getElementById('missions-carousel')) {
-        await Missions.renderCarousel('missions-carousel');
-        Carousel.initParkSwiper();
-    }
+        // Load missions carousel — populate slides first, then init Swiper
+        if (document.getElementById('missions-carousel')) {
+            await Missions.renderCarousel('missions-carousel');
+            Carousel.initParkSwiper();
+        }
 
-    // Load missions grid if present
-    if (document.getElementById('missions-grid')) {
-        Missions.renderMissionsGrid('missions-grid');
-    }
+        // Load missions grid if present
+        if (document.getElementById('missions-grid')) {
+            Missions.renderMissionsGrid('missions-grid');
+        }
 
-    // Load announcements if present
-    if (document.getElementById('announcements-list')) {
-        await Announcements.renderCards('announcements-list');
-    }
+        // Load announcements if present
+        if (document.getElementById('announcements-list')) {
+            console.log('Main: Rendering announcements...');
+            await Announcements.renderCards('announcements-list');
+        }
 
-    // Update missions stats page from JSON data
-    if (document.getElementById('stat-missions')) {
-        Missions.updateStats();
+        // Update missions stats page from JSON data
+        if (document.getElementById('stat-missions')) {
+            Missions.updateStats();
+        }
+    } catch (error) {
+        console.error('Main initialization error:', error);
     }
 });
