@@ -86,53 +86,106 @@
         <section class="page-header">
             <div class="container">
                 <h1 class="page-title" data-aos="fade-up">Cookie Policy</h1>
-                <p class="page-subtitle" data-aos="fade-up" data-aos-delay="100">How we handle cookies and your preferences.</p>
+                <p class="page-subtitle" data-aos="fade-up" data-aos-delay="100">How we handle cookies and your privacy preferences.</p>
             </div>
         </section>
 
         <section>
             <div class="container legal-content">
-                <p class="last-updated">Last updated: May 2025</p>
+                <p class="last-updated">Last updated: May 30, 2026</p>
 
                 <h2>1. What Are Cookies</h2>
-                <p>Cookies are small text files stored on your device when you visit a website. They help the site remember your preferences and understand how you interact with the content.</p>
+                <p>Cookies are small text files stored on your device by your web browser when you visit a website. They serve useful functions like remembering your preferences, understanding how you interact with content, and helping site owners improve their services.</p>
 
-                <h2>2. How We Use Cookies</h2>
-                <p>RU Club Motherland uses cookies exclusively through <strong>Google Analytics</strong> (GA4) to collect anonymous traffic data. This helps us understand which pages are most popular, how visitors find us, and how we can improve the site experience.</p>
+                <h2>2. Cookies We Use</h2>
+                <p>RU Club Motherland uses cookies exclusively through <strong>Google Analytics 4 (GA4)</strong> — the only external cookie service on this site. GA4 helps us understand which pages are most visited, how users navigate the site, and what devices they use, so we can continuously improve the experience.</p>
+
+                <h3>Cookie Details</h3>
+                <table style="width:100%; border-collapse: collapse; margin:1rem 0; font-size:0.9rem;">
+                    <thead>
+                        <tr style="background: var(--bg-secondary);">
+                            <th style="padding:0.75rem; text-align:left; border-bottom:2px solid var(--border-light);">Cookie Name</th>
+                            <th style="padding:0.75rem; text-align:left; border-bottom:2px solid var(--border-light);">Purpose</th>
+                            <th style="padding:0.75rem; text-align:left; border-bottom:2px solid var(--border-light);">Duration</th>
+                            <th style="padding:0.75rem; text-align:left; border-bottom:2px solid var(--border-light);">Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding:0.75rem; border-bottom:1px solid var(--border-light);"><code>_ga</code></td>
+                            <td style="padding:0.75rem; border-bottom:1px solid var(--border-light);">Distinguishes unique users</td>
+                            <td style="padding:0.75rem; border-bottom:1px solid var(--border-light);">2 years</td>
+                            <td style="padding:0.75rem; border-bottom:1px solid var(--border-light);">Analytics</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:0.75rem; border-bottom:1px solid var(--border-light);"><code>_ga_*</code></td>
+                            <td style="padding:0.75rem; border-bottom:1px solid var(--border-light);">Maintains session state</td>
+                            <td style="padding:0.75rem; border-bottom:1px solid var(--border-light);">2 years</td>
+                            <td style="padding:0.75rem; border-bottom:1px solid var(--border-light);">Analytics</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Local Storage (Not Cookies)</h3>
+                <p>We also use browser <code>localStorage</code> (not cookies) for:</p>
+                <ul>
+                    <li><strong><code>theme</code></strong> — Stores your light/dark mode preference (no expiry)</li>
+                    <li><strong><code>cookie-consent</code></strong> — Stores your Accept/Decline choice for the cookie banner</li>
+                </ul>
+                <p>These values never leave your browser — they are not transmitted to any server.</p>
 
                 <div class="highlight-box">
                     <strong>We do NOT use cookies for:</strong>
                     <ul style="margin-top:0.5rem;">
-                        <li>Advertising or tracking across websites</li>
-                        <li>Collecting personal identifiable information</li>
+                        <li>Advertising, retargeting, or cross-site tracking</li>
+                        <li>Collecting personally identifiable information (name, email, address)</li>
                         <li>Selling or sharing data with third parties</li>
+                        <li>Social media tracking or embedded widgets</li>
                     </ul>
                 </div>
 
-                <h2>3. Data Collected</h2>
-                <p>Google Analytics may collect:</p>
+                <h2>3. Data Collected by GA4</h2>
+                <p>When you accept cookies, Google Analytics may collect:</p>
                 <ul>
                     <li>Pages visited and time spent on each page</li>
-                    <li>Browser type and device type (anonymous)</li>
-                    <li>Approximate geographic location (city-level only)</li>
-                    <li>Referring website or traffic source</li>
+                    <li>Browser type, device type, and operating system (anonymous user-agent data)</li>
+                    <li>Approximate geographic location (city-level only, not precise GPS)</li>
+                    <li>Referring website, search engine, or traffic source</li>
+                    <li>Scroll depth, button clicks, and page interactions (events)</li>
                 </ul>
 
-                <h2>4. Your Consent</h2>
-                <p>When you first visit our site, a cookie consent modal appears asking you to Accept or Decline analytics cookies. Your choice is stored in your browser's localStorage as <code>cookie-consent</code>.</p>
+                <h2>4. How Consent Works</h2>
+                <p>On your first visit, a cookie consent banner appears at the bottom of the page with two options:</p>
                 <ul>
-                    <li><strong>Accepted:</strong> GA4 is granted analytics_storage permission</li>
-                    <li><strong>Declined:</strong> GA4 is denied analytics_storage — no tracking occurs</li>
+                    <li><strong>Accept All</strong> — GA4 is granted <code>analytics_storage</code> permission via the Consent Mode API. Cookies are set and tracking begins.</li>
+                    <li><strong>Decline</strong> — GA4 is denied <code>analytics_storage</code>. No cookies are set and no tracking occurs. The GA4 script loads but is configured to not send data.</li>
                 </ul>
+                <p>Your choice is stored in <code>localStorage</code> as <code>cookie-consent: "accepted"</code> or <code>cookie-consent: "declined"</code>. The banner will not reappear unless you clear your browser storage.</p>
 
-                <h2>5. Managing Cookies</h2>
-                <p>You can change your cookie preferences at any time through your browser settings. Most browsers allow you to block or delete cookies. Note that blocking all cookies may affect site functionality.</p>
+                <h2>5. Managing &amp; Revoking Consent</h2>
+                <p>You can change your cookie preference at any time:</p>
+                <ul>
+                    <li><strong>Clear localStorage</strong> in your browser's developer tools to reset consent and see the banner again</li>
+                    <li><strong>Browser settings:</strong> Most browsers allow you to block or delete specific cookies via Settings &rarr; Privacy &amp; Security</li>
+                </ul>
+                <p>Instructions for common browsers:</p>
+                <ul>
+                    <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener noreferrer">Google Chrome</a></li>
+                    <li><a href="https://support.mozilla.org/kb/clear-cookies-and-site-data-firefox" target="_blank" rel="noopener noreferrer">Mozilla Firefox</a></li>
+                    <li><a href="https://support.apple.com/guide/safari/manage-cookies-sfri11471/" target="_blank" rel="noopener noreferrer">Safari</a></li>
+                    <li><a href="https://support.microsoft.com/microsoft-edge/delete-cookies-in-microsoft-edge" target="_blank" rel="noopener noreferrer">Microsoft Edge</a></li>
+                </ul>
 
                 <h2>6. Changes to This Policy</h2>
-                <p>We may update this Cookie Policy from time to time. Any changes will be posted on this page with an updated revision date.</p>
+                <p>We may update this Cookie Policy periodically. Any changes will be posted on this page with an updated revision date. Continued use of the site after changes constitutes acceptance of the updated policy.</p>
 
                 <h2>7. Contact</h2>
-                <p>If you have questions about this Cookie Policy, reach out to us at <a href="mailto:ruclubmotherland@gmail.com">ruclubmotherland@gmail.com</a>.</p>
+                <p>If you have questions about this Cookie Policy or how we handle your data:</p>
+                <ul>
+                    <li>Email: <a href="mailto:ruclubmotherland@gmail.com">ruclubmotherland@gmail.com</a></li>
+                    <li>Phone: <a href="tel:+9779856022256">+977 9856022256</a></li>
+                    <li>Or visit our <a href="/contact">Contact Page</a></li>
+                </ul>
             </div>
         </section>
     </main>
