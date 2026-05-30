@@ -1,0 +1,40 @@
+{
+  "id": "basundharapark",
+  "title": "Basundhara Park Clean-up",
+  "slug": "basundhara-park-cleanup",
+  "tag": "Mission #01",
+  "date": "May 2025",
+  "description": "Comprehensive ecological audit and waste management drive in Pokhara.",
+  "detail": "Our flagship mission at Basundhara Park, Pokhara. The RU Club Motherland team conducted a thorough ecological audit, waste segregation drive, and community awareness program. With support from Doko Recyclers and Pokhara Metropolitan City, we surveyed 20+ areas and engaged 25+ volunteers in restoring the park's natural beauty.",
+  "images": [
+    "img1.jpg",
+    "img10.jpg",
+    "img11.jpg",
+    "img14.jpg",
+    "img15.jpg",
+    "img16.jpg",
+    "img18.jpg",
+    "img19.jpg",
+    "img2.jpg",
+    "img20.jpg",
+    "img21.jpg",
+    "img22.jpg",
+    "img3.jpg",
+    "img4.jpg",
+    "img5.jpg",
+    "img6.jpg",
+    "img7.jpg",
+    "img8.jpg",
+    "img9.jpg"
+  ],
+  "stats": {
+    "volunteers": "25+",
+    "areasSurveyed": "20+",
+    "area": "Basundhara Park, Pokhara"
+  },
+  "partners": [
+    "Doko Recyclers",
+    "Pokhara Metropolitan City"
+  ],
+  "show": true
+}

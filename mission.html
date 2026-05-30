@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission | RU Club Motherland</title>
+    <meta name="description" content="View RU Club Motherland environmental mission details and gallery.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://ruclubmotherland.vercel.app/mission.html">
+
+    <meta property="og:title" content="Mission | RU Club Motherland">
+    <meta property="og:description" content="View RU Club Motherland environmental mission details and gallery.">
+    <meta property="og:image" content="https://ruclubmotherland.vercel.app/assets/brand/logo.png">
+    <meta property="og:url" content="https://ruclubmotherland.vercel.app/mission.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="RuClub Motherland">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mission | RU Club Motherland">
+    <meta name="twitter:description" content="View RU Club Motherland environmental mission details.">
+    <meta name="twitter:image" content="https://ruclubmotherland.vercel.app/assets/brand/logo.png">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+    <link rel="icon" href="assets/brand/logo_icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/logo_icon.png">
+    <script>
+        (function() {
+            var theme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+
+    <!-- Google tag (gtag.js) - REPLACE G-XXXXXXXXXX with your GA4 ID -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', { analytics_storage: 'denied' });
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+
+    <style>
+      .mission-detail-header {
+        padding: calc(var(--header-height) + 4rem) 0 2rem;
+        text-align: center;
+        background: var(--bg-secondary);
+      }
+      .mission-detail-header .mission-tag {
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--brand-primary);
+        margin-bottom: 0.75rem;
+      }
+      .mission-detail-header h1 {
+        font-size: clamp(2rem, 6vw, 3.5rem);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        margin-bottom: 0.75rem;
+      }
+      .mission-detail-header .mission-date {
+        font-size: 0.9rem;
+        color: var(--text-tertiary);
+      }
+      .mission-detail-body {
+        padding: 3rem 0;
+      }
+      .mission-layout {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      @media (min-width: 1024px) {
+        .mission-layout {
+          grid-template-columns: 1fr 320px;
+        }
+      }
+      .mission-description {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: var(--text-secondary);
+      }
+      .mission-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      .mission-sidebar-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-light);
+        border-radius: var(--radius-xl);
+        padding: 1.5rem;
+      }
+      .mission-sidebar-card h3 {
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--text-tertiary);
+        margin-bottom: 1rem;
+      }
+      .mission-stat-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid var(--border-light);
+        font-size: 0.9rem;
+      }
+      .mission-stat-item:last-child {
+        border-bottom: none;
+      }
+      .mission-stat-label {
+        color: var(--text-secondary);
+      }
+      .mission-stat-value {
+        font-weight: 700;
+        color: var(--brand-primary);
+      }
+      .mission-partner-item {
+        display: inline-block;
+        padding: 0.4rem 0.8rem;
+        background: var(--bg-secondary);
+        border-radius: var(--radius-full);
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--text-secondary);
+        margin: 0.2rem;
+      }
+      .mission-gallery {
+        padding: 3rem 0;
+        background: var(--bg-secondary);
+      }
+      .mission-gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1rem;
+      }
+      .mission-gallery-grid a {
+        display: block;
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        aspect-ratio: 16/10;
+      }
+      .mission-gallery-grid img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+      }
+      .mission-gallery-grid a:hover img {
+        transform: scale(1.05);
+      }
+    </style>
+</head>
+<body>
+
+    <header id="header-placeholder" class="main-header"></header>
+
+    <main id="mission-content">
+        <div class="mission-detail-header">
+            <div class="container">
+                <p class="mission-tag" id="mission-tag"></p>
+                <h1 id="mission-title"></h1>
+                <p class="mission-date" id="mission-date"></p>
+            </div>
+        </div>
+
+        <div class="mission-detail-body">
+            <div class="container">
+                <div class="mission-layout">
+                    <div>
+                        <p class="mission-description" id="mission-description"></p>
+                    </div>
+                    <div class="mission-sidebar">
+                        <div class="mission-sidebar-card" id="mission-stats-card">
+                            <h3>Mission Stats</h3>
+                            <div id="mission-stats"></div>
+                        </div>
+                        <div class="mission-sidebar-card" id="mission-partners-card">
+                            <h3>Partners</h3>
+                            <div id="mission-partners"></div>
+                        </div>
+                        <a href="missions.html" class="btn-secondary" style="text-align:center;">&larr; All Missions</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mission-gallery" id="mission-gallery-section">
+            <div class="container">
+                <div class="section-header">
+                    <p class="section-label">Gallery</p>
+                    <h2 class="section-title">Mission Photos</h2>
+                </div>
+                <div class="mission-gallery-grid" id="mission-gallery"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer id="footer-placeholder" class="main-footer"></footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/carousel.js"></script>
+    <script src="js/forms.js"></script>
+    <script src="js/missions.js"></script>
+    <script src="js/data-loader.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', async function() {
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+        if (!id) {
+          document.getElementById('mission-content').innerHTML = '<div class="container" style="padding: 6rem 0; text-align:center;"><p>Mission not found.</p><a href="missions.html" class="btn-primary" style="margin-top:1rem;display:inline-block;">View All Missions</a></div>';
+          document.querySelector('meta[name="robots"]').content = 'noindex, nofollow';
+          return;
+        }
+
+        let mission = await Missions.getMission(id);
+        if (!mission) {
+          const all = await Missions.load();
+          mission = all.missions.find(m => m.id === id) || null;
+        }
+        if (!mission) {
+          document.getElementById('mission-content').innerHTML = '<div class="container" style="padding: 6rem 0; text-align:center;"><p>Mission not found.</p><a href="missions.html" class="btn-primary" style="margin-top:1rem;display:inline-block;">View All Missions</a></div>';
+          document.querySelector('meta[name="robots"]').content = 'noindex, nofollow';
+          return;
+        }
+
+        document.title = mission.title + ' | RU Club Motherland';
+        document.querySelector('meta[name="description"]').content = mission.detail.substring(0, 160);
+        document.querySelector('link[rel="canonical"]').href = 'https://ruclubmotherland.vercel.app/mission.html?id=' + mission.slug;
+        document.querySelector('meta[property="og:title"]').content = mission.title + ' | RU Club Motherland';
+        document.querySelector('meta[property="og:description"]').content = mission.detail.substring(0, 160);
+        document.querySelector('meta[property="og:url"]').content = 'https://ruclubmotherland.vercel.app/mission.html?id=' + mission.slug;
+        document.querySelector('meta[name="twitter:title"]').content = mission.title + ' | RU Club Motherland';
+        document.querySelector('meta[name="twitter:description"]').content = mission.detail.substring(0, 160);
+
+        document.getElementById('mission-tag').textContent = mission.tag;
+        document.getElementById('mission-title').textContent = mission.title;
+        document.getElementById('mission-date').textContent = mission.date;
+        document.getElementById('mission-description').textContent = mission.detail;
+
+        const infoRes = await fetch('mission/' + mission.id + '/info.json');
+        const info = await infoRes.json();
+
+        if (info.stats) {
+          const statsContainer = document.getElementById('mission-stats');
+          statsContainer.innerHTML = Object.entries(info.stats).map(([key, val]) => {
+            const label = key.replace(/([A-Z])/g, ' $1').replace(/^./, s => s.toUpperCase());
+            return '<div class="mission-stat-item"><span class="mission-stat-label">' + label + '</span><span class="mission-stat-value">' + val + '</span></div>';
+          }).join('');
+        }
+
+        if (info.partners && info.partners.length) {
+          const partnersContainer = document.getElementById('mission-partners');
+          partnersContainer.innerHTML = info.partners.map(p => '<span class="mission-partner-item">' + p + '</span>').join('');
+        } else {
+          document.getElementById('mission-partners-card').style.display = 'none';
+        }
+
+        if (info.images && info.images.length) {
+          const gallery = document.getElementById('mission-gallery');
+          gallery.innerHTML = info.images.map(img =>
+            '<a href="mission/' + mission.id + '/' + img + '" class="glightbox" data-gallery="mission"><img src="mission/' + mission.id + '/' + img + '" alt="' + mission.title + '" loading="lazy"></a>'
+          ).join('');
+
+          if (typeof GLightbox !== 'undefined') {
+            GLightbox({ selector: '.glightbox', touchNavigation: true, loop: true });
+          }
+        }
+      });
+    </script>
+</body>
+</html>
