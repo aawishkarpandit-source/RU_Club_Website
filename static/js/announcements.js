@@ -54,22 +54,25 @@ const Announcements = {
   },
 
   async renderCards(containerId) {
-    console.log('Announcements: Starting render for:', containerId);
+    console.log('Announcements: Loading data for:', containerId);
     await this.loadList();
     const container = document.getElementById(containerId);
     if (!container) {
-      console.error('Announcements: Container not found:', containerId);
+      console.error('Announcements: Container NOT FOUND:', containerId);
       return;
     }
 
     const items = this.active();
+    console.log('Announcements: Items count:', items.length);
+    
     if (!items.length) {
-      console.warn('Announcements: No active items to render');
-      container.innerHTML = '<div class="announcements-empty"><p>No announcements at this time.</p></div>';
+      console.log('Announcements: No active items found.');
+      container.innerHTML = '<div class="announcements-empty"><p>No announcements found.</p></div>';
       return;
     }
 
     container.innerHTML = items.map((a, i) => {
+      console.log('Announcements: Rendering item:', a.title);
       const imgPath = a.image ? (a.image.startsWith('/') ? a.image : '/' + a.image) : '';
       return `
       <article class="announcement-card" data-aos="fade-up" data-aos-delay="${i * 100}">
@@ -92,6 +95,6 @@ const Announcements = {
         </div>
       </article>
     `}).join('');
-    console.log('Announcements: Render complete');
+    console.log('Announcements: Render finished.');
   }
 };
