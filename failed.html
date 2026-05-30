@@ -6,11 +6,11 @@
     <title>Message Failed | RU Club Motherland</title>
     <meta name="description" content="Your message could not be sent. Please try again or reach out via email directly.">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="canonical" href="https://ruclubmotherland.vercel.app/failed.html">
+    <link rel="canonical" href="https://ruclubmotherland.vercel.app/failed">
     <meta property="og:title" content="Message Failed | RU Club Motherland">
     <meta property="og:description" content="Your message could not be sent. Please try again.">
     <meta property="og:image" content="https://ruclubmotherland.vercel.app/static/assets/brand/logo.png">
-    <meta property="og:url" content="https://ruclubmotherland.vercel.app/failed.html">
+    <meta property="og:url" content="https://ruclubmotherland.vercel.app/failed">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="RU Club Motherland">
     <meta name="twitter:card" content="summary_large_image">
@@ -91,6 +91,19 @@
             flex-wrap: wrap;
         }
     </style>
+    <!-- JSON-LD Structured Data: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://ruclubmotherland.vercel.app" },
+        { "@type": "ListItem", "position": 2, "name": "Contact", "item": "https://ruclubmotherland.vercel.app/contact" },
+        { "@type": "ListItem", "position": 3, "name": "Failed", "item": "https://ruclubmotherland.vercel.app/failed" }
+      ]
+    }
+    </script>
+
 </head>
 <body>
     <main class="status-page">
@@ -99,8 +112,8 @@
             <h1 class="status-title">Something Went Wrong</h1>
             <p class="status-text">We couldn't send your message. Please try again, or reach us directly at <a href="mailto:ruclubmotherland@gmail.com" style="color:var(--brand-primary);">ruclubmotherland@gmail.com</a>.</p>
             <div class="status-actions">
-                <a href="contact.html" class="btn-primary">Try Again</a>
-                <a href="index.html" class="btn-secondary">Back to Home</a>
+                <a href="/contact" class="btn-primary">Try Again</a>
+                <a href="/" class="btn-secondary">Back to Home</a>
             </div>
         </div>
     </main>
