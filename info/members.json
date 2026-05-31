@@ -31,12 +31,13 @@
     { "name": "Rhythm Adhikari", "class": "7B", "role": "General Member" },
     { "name": "Sahanshil Bhattarai", "class": "6E", "role": "General Member" },
     { "name": "Supriya Khadka", "class": "10A", "role": "General Member" },
+{ "name": "Krish KC", "class": "8C", "role": "General Member" },
     { "name": "Trishana Jwarchana", "class": "10E", "role": "General Member" }
   ],
   "stats": {
     "teachers": 3,
     "core": 5,
-    "general": 22,
+    "general": 23,
     "total": 30
   }
 }
