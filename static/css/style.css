@@ -1303,6 +1303,21 @@ section.bg-secondary {
 
 .form-group {
     margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.form-input.error,
+.form-textarea.error {
+    border-color: #ef4444;
+    background: rgba(239, 68, 68, 0.05);
+}
+
+.error-message {
+    display: block;
+    color: #ef4444;
+    font-size: 0.75rem;
+    margin-top: 0.35rem;
+    font-weight: 500;
 }
 
 .form-label {
