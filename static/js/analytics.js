@@ -10,6 +10,18 @@
  * To disable: just delete the GA_MEASUREMENT_ID below.
  * To enable: it's already enabled. You're welcome.
  */
+/*  VERCEL ANALYTICS — load Vercel Insights (auto-served when enabled)  */
+/* ---------------------------------------------------------------- */
+const VercelAnalytics = {
+  init() {
+    window.va = window.va || function(){ (window.vaq = window.vaq || []).push(arguments); };
+    const s = document.createElement('script');
+    s.defer = true;
+    s.src = '/_vercel/insights/script.js';
+    document.head.appendChild(s);
+    console.info('📈 Vercel Analytics initialized (if enabled in dashboard).');
+  }
+};
 
 const Analytics = {
   GA_MEASUREMENT_IDS: ['G-HWFPCZ4W1Q', 'G-HJTLGVDNYK'],
@@ -29,6 +41,8 @@ const Analytics = {
   /*  INIT — loads GA with consent-aware ID set                       */
   /* ---------------------------------------------------------------- */
   init() {
+    this.captureUtm();
+    VercelAnalytics.init();
     this.loadScript();
     this.setupConsent();
     this.trackPageView();
@@ -45,10 +59,10 @@ const Analytics = {
     this.trackErrorTracking();
   },
 
-  /* ---------------------------------------------------------------- */
-  /*  LOAD SCRIPT — loads gtag.js for the primary ID, configures all  */
-  /* ---------------------------------------------------------------- */
-  loadScript() {
+/* ---------------------------------------------------------------- */
+/*  LOAD SCRIPT — loads gtag.js for the primary ID, configures all  */
+/* ---------------------------------------------------------------- */
+loadScript() {
     const ids = this.getActiveIds();
     if (!ids || ids.length === 0) {
       console.info('📊 GA4 placeholder detected — no data sent.');
@@ -71,7 +85,13 @@ const Analytics = {
         gtag('config', id, { 
             send_page_view: false,
             'allow_google_signals': true,
-            'allow_ad_personalization_signals': true
+            'allow_ad_personalization_signals': true,
+            linker: {
+                domains: [
+                    'ruclubmss.vercel.app',
+                    'ru-club-motherland.vercel.app'
+                ]
+            }
         });
     });
     console.info('📊 GA4 loaded for IDs:', ids.join(', '));
@@ -87,10 +107,40 @@ const Analytics = {
     }
   },
 
-  /* ---------------------------------------------------------------- */
-  /*  PAGE VIEW — "I exist!" (sent once per page load)                */
-  /* ---------------------------------------------------------------- */
-  trackPageView() {
+/* ---------------------------------------------------------------- */
+/*  UTM TRACKING — persist UTM params across session                */
+/* ---------------------------------------------------------------- */
+captureUtm() {
+    const params = new URLSearchParams(window.location.search);
+    const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+    const utmData = {};
+    let found = false;
+
+    utmKeys.forEach(key => {
+        const val = params.get(key);
+        if (val) {
+            utmData[key.replace('utm_', '')] = val;
+            found = true;
+        }
+    });
+
+    if (found) {
+        sessionStorage.setItem('utm_data', JSON.stringify(utmData));
+    }
+},
+
+getUtmData() {
+    try {
+        return JSON.parse(sessionStorage.getItem('utm_data')) || {};
+    } catch {
+        return {};
+    }
+},
+
+/* ---------------------------------------------------------------- */
+/*  PAGE VIEW — "I exist!" (sent once per page load)                */
+/* ---------------------------------------------------------------- */
+trackPageView() {
     if (typeof gtag === 'undefined') return;
     
     // Determine page type
@@ -106,17 +156,37 @@ const Analytics = {
     else if (path.includes('failed')) pageType = 'failed';
     else if (path.includes('secret-garden')) pageType = 'secret_garden';
 
-    gtag('event', 'page_view', {
-      page_title: document.title,
-      page_location: window.location.href,
-      page_path: window.location.pathname,
-      page_type: pageType,
-      referrer: document.referrer || 'direct',
-      user_language: navigator.language,
-      screen_resolution: `${window.screen.width}x${window.screen.height}`,
-      viewport_size: `${window.innerWidth}x${window.innerHeight}`,
-      device_type: this.getDeviceType()
-    });
+    // Check if referrer is our own domain → mark as internal
+    let referrerSource = document.referrer || 'direct';
+    try {
+        const refUrl = new URL(document.referrer);
+        if (refUrl.hostname === window.location.hostname) {
+            referrerSource = 'internal';
+        }
+    } catch (_) {}
+
+    const utm = this.getUtmData();
+    const eventParams = {
+        page_title: document.title,
+        page_location: window.location.href,
+        page_path: window.location.pathname,
+        page_type: pageType,
+        referrer: referrerSource,
+        referrer_source: referrerSource,
+        user_language: navigator.language,
+        screen_resolution: `${window.screen.width}x${window.screen.height}`,
+        viewport_size: `${window.innerWidth}x${window.innerHeight}`,
+        device_type: this.getDeviceType()
+    };
+
+    // Attach UTM params if present
+    if (utm.source) eventParams.traffic_source = utm.source;
+    if (utm.medium) eventParams.traffic_medium = utm.medium;
+    if (utm.campaign) eventParams.traffic_campaign = utm.campaign;
+    if (utm.term) eventParams.traffic_term = utm.term;
+    if (utm.content) eventParams.traffic_content = utm.content;
+
+    gtag('event', 'page_view', eventParams);
 
     this.pageStartTime = Date.now();
   },
