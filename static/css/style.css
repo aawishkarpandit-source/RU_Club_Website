@@ -1580,10 +1580,9 @@ section.bg-secondary {
     border-color: var(--brand-primary);
 }
 
-.menu-close svg {
+.menu-close .icon-current {
     width: 24px;
     height: 24px;
-    stroke: var(--text-primary);
 }
 
 @media (min-width: 768px) {
@@ -2033,6 +2032,10 @@ section.bg-secondary {
 .icon-current {
     display: inline;
     vertical-align: middle;
+}
+
+[data-theme="dark"] .icon-current {
+    filter: invert(1);
 }
 
 .theme-icon {
