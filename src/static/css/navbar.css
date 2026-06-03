@@ -45,10 +45,16 @@
     padding: 0 1.5rem;
 }
 
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
 .logo {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
 }
 
 .logo img {
@@ -81,6 +87,45 @@
     text-transform: uppercase;
     letter-spacing: 0.15em;
     color: var(--brand-primary);
+}
+
+.header-gh {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-full);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-light);
+    transition: var(--transition-base);
+    flex-shrink: 0;
+}
+
+.header-gh img {
+    width: 18px;
+    height: 18px;
+    filter: brightness(0);
+    transition: filter 0.3s ease;
+}
+
+[data-theme="dark"] .header-gh img {
+    filter: brightness(0) invert(1);
+}
+
+.header-gh:hover {
+    border-color: var(--brand-primary);
+    background: var(--bg-card);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.header-gh:hover img {
+    filter: brightness(0) invert(1);
+}
+
+[data-theme="dark"] .header-gh:hover img {
+    filter: brightness(0) invert(1);
 }
 
 .nav-desktop {
@@ -119,16 +164,24 @@
     width: 100%;
 }
 
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+}
+
+/* Mobile menu GitHub link */
 .nav-github {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    padding: 0.85rem 1.4rem;
+    gap: 8px;
+    padding: 0.6rem 1rem;
     border-radius: var(--radius-full);
     border: 1.5px solid var(--border-light);
     background: var(--bg-secondary);
     color: var(--text-secondary);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 600;
     transition: var(--transition-base);
 }
@@ -148,8 +201,6 @@
     border-color: var(--brand-primary);
     color: var(--brand-primary);
     background: var(--bg-card);
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-md);
 }
 
 .nav-github:hover img {
@@ -158,13 +209,6 @@
 
 [data-theme="dark"] .nav-github:hover img {
     filter: brightness(0) invert(1);
-}
-
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    padding: 0.75rem 0;
 }
 
 .theme-toggle {
