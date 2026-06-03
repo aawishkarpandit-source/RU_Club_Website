@@ -25,14 +25,6 @@ const Mobile = {
     },
 
     fixTouchInteractions() {
-        document.addEventListener('touchend', (e) => {
-            const td = e.target.closest('td');
-            if (td && td.textContent.includes('Sincere')) {
-                window.location.href = '/secret-garden';
-                e.preventDefault();
-            }
-        }, { passive: false });
-
         document.querySelectorAll('.nav-link, .btn-join, .gallery-card').forEach(el => {
             el.addEventListener('touchstart', () => {}, { passive: true });
         });
