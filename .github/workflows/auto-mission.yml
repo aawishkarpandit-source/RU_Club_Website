@@ -67,6 +67,11 @@ jobs:
                   images.extend(sorted(folder.glob(ext)))
               image_count = len(images)
 
+              # Preserve show flag: use explicit bool from info.json, fall back to existing list, default True
+              show = info.get("show")
+              if not isinstance(show, bool):
+                  show = existing.get(slug, {}).get("show", True)
+
               mission = {
                   "slug": slug,
                   "id": slug,
@@ -75,7 +80,7 @@ jobs:
                   "tag": info.get("tag", ""),
                   "date": info.get("date", ""),
                   "detail": info.get("detail", ""),
-                  "show": info.get("show") if isinstance(info.get("show"), bool) else existing.get(slug, {}).get("show", True)
+                  "show": show
               }
 
               if slug in existing:

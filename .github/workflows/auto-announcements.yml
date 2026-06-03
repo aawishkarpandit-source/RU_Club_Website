@@ -30,6 +30,16 @@ jobs:
           MAIN = Path("announcements/main")
           LIST_PATH = Path("announcements/list.json")
 
+          existing = {}
+          if LIST_PATH.exists():
+              with open(LIST_PATH) as f:
+                  try:
+                      existing_list = json.load(f)
+                      for entry in existing_list:
+                          existing[entry["id"]] = entry
+                  except Exception:
+                      pass
+
           announcements = []
           if not MAIN.exists():
               print("No announcements/main/ directory — skipping")
@@ -46,6 +56,11 @@ jobs:
 
               slug = re.sub(r'[^a-z0-9-]', '', data.get("id", file.stem).lower().replace(' ', '-'))
 
+              # Preserve existing active value if not explicitly set in the JSON file
+              active = data.get("active")
+              if not isinstance(active, bool):
+                  active = existing.get(slug, {}).get("active", True)
+
               entry = {
                   "id": slug,
                   "title": data.get("title", file.stem.replace("-", " ").title()),
@@ -53,7 +68,7 @@ jobs:
                   "date": data.get("date", ""),
                   "summary": data.get("summary", ""),
                   "image": data.get("image", ""),
-                  "active": data.get("active", True)
+                  "active": active
               }
 
               announcements.append(entry)

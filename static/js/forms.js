@@ -103,8 +103,7 @@ const Forms = {
             gtag('event', eventName, eventData);
         }
         
-        // Log to console in development
-        if (process.env.NODE_ENV === 'development' || !process.env.NODE_ENV) {
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
             console.log(`[Analytics] ${eventName}:`, eventData);
         }
     },
@@ -118,7 +117,6 @@ const Forms = {
             const btn = form.querySelector('.btn-submit');
             const inputs = form.querySelectorAll('input, textarea');
             
-            // Validate all fields
             let allValid = true;
             inputs.forEach(input => {
                 if (!this.validateField(input)) {
@@ -147,40 +145,37 @@ const Forms = {
                 language: navigator.language
             };
 
-            try {
-                // Track form submission
-                this.trackEvent('form_submit_start', {
-                    form_name: 'contact_form',
-                    timestamp: data.timestamp
-                });
+            this.trackEvent('form_submit_start', {
+                form_name: 'contact_form',
+                timestamp: data.timestamp
+            });
 
-                // Submit to primary endpoint
+            try {
                 const response = await fetch(this.FORM_ENDPOINT, {
                     method: 'POST',
                     body: formData,
-                    mode: 'no-cors'
+                    headers: { 'Accept': 'application/json' }
                 });
 
-                // Check if response is ok (for no-cors, we can't check status directly)
-                // So we'll consider any response as success and also submit to backup
-                
-                // Also submit to backup endpoint
+                const result = await response.json();
+
+                if (!result.ok) {
+                    throw new Error(result.error || 'Formspree returned error');
+                }
+
                 fetch(this.OLD_FORM_ENDPOINT, {
                     method: 'POST',
                     body: formData,
-                    mode: 'no-cors'
-                }).catch(err => console.error('Backup submission failed:', err));
+                    headers: { 'Accept': 'application/json' }
+                }).catch(() => {});
 
-                // Track successful submission
                 this.trackEvent('form_submit_success', {
                     form_name: 'contact_form',
                     email_domain: data.email.split('@')[1]
                 });
 
-                // Store submission in localStorage for offline support
                 this.storeSubmission(data);
 
-                // Redirect to success page
                 setTimeout(() => {
                     window.location.href = '/success';
                 }, 500);
@@ -195,7 +190,6 @@ const Forms = {
                 btn.disabled = false;
                 btn.textContent = 'Send Message';
                 
-                // Redirect to failed page on error
                 setTimeout(() => {
                     window.location.href = '/failed';
                 }, 500);

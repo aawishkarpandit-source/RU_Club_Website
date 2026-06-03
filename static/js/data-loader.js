@@ -112,7 +112,7 @@ const DataLoader = {
       featuresContainer.innerHTML = content.features.cards.map((c, i) => `
         <div class="feature-card" data-aos="fade-up" data-aos-delay="${(i + 1) * 100}">
           <div class="feature-icon">
-            <img src="static/assets/icons/${c.icon}.svg" alt="${c.title}" width="24" height="24">
+            <img src="/static/assets/icons/${c.icon}.svg" alt="${c.title}" width="24" height="24">
           </div>
           <h3 class="feature-title">${c.title}</h3>
           <p class="feature-desc">${c.description}</p>
