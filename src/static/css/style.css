@@ -246,7 +246,9 @@ section.bg-secondary {
 
 .hero-title,
 .hero-subtitle,
-.hero-badge-text {
+.hero-badge,
+.hero-badge-text,
+.hero-badge-dot {
     color: #fff;
     text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
