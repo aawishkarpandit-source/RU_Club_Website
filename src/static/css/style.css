@@ -551,6 +551,7 @@ section.bg-secondary {
     cursor: pointer;
     position: relative;
     z-index: 1;
+    background: var(--bg-secondary);
 }
 
 [data-theme="dark"] .parkSwiper .swiper-slide {
@@ -1039,6 +1040,7 @@ section.bg-secondary {
     aspect-ratio: 16/10;
     overflow: hidden;
     background: var(--bg-secondary);
+    line-height: 0;
 }
 
 .gallery-image img {

@@ -52,14 +52,13 @@ const Gallery = {
     }
 
     container.innerHTML = results.map(({ mission, mid, images }) => {
-      const first = images[0];
-      const featured = `/mission/${mid}/${first}`;
+      const featured = `/mission/${mid}/${images[0]}`;
       return `
         <div class="gallery-card" data-aos="fade-up">
           <div class="gallery-image">
             <img src="${featured}" alt="${mission.title || ''}" loading="lazy">
             <div class="gallery-overlay">
-              <a href="${featured}" class="glightbox btn-primary" data-gallery="gallery-${mid}" data-description="${mission.title || ''}">View Gallery</a>
+              <a href="/mission?id=${mid}" class="btn-primary">View Gallery</a>
             </div>
           </div>
           <div class="gallery-content">
@@ -70,26 +69,12 @@ const Gallery = {
             <h3 class="gallery-title">${mission.title || ''}</h3>
             <p class="gallery-desc">${mission.description || ''}</p>
           </div>
-          ${images.slice(1).map(img => `
-            <a href="/mission/${mid}/${img}" class="glightbox gallery-hidden-link" data-gallery="gallery-${mid}" data-description="${mission.title || ''}" style="display:none;"></a>
-          `).join('')}
         </div>`;
     }).join('');
 
     const imageCount = results.reduce((sum, r) => sum + r.images.length, 0);
     console.log('[Gallery] Rendered', imageCount, 'images across', results.length, 'missions');
-
     if (typeof AOS !== 'undefined') AOS.refresh();
-
-    if (typeof GLightbox !== 'undefined') {
-      GLightbox({
-        selector: '.glightbox[data-gallery^="gallery-"]',
-        touchNavigation: true,
-        loop: true,
-        zoomable: true,
-        draggable: true
-      });
-    }
   }
 };
 

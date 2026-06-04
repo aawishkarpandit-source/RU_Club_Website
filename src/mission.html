@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="/static/css/responsive.css" media="print" onload="this.media='all'">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" media="print" onload="this.media='all'">
     <link rel="manifest" href="/site.webmanifest">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/static/assets/brand/logo_icon.png">
@@ -151,6 +152,31 @@
         color: var(--text-secondary);
         margin: 0.2rem;
       }
+      .mission-gallery {
+        padding: 3rem 0;
+        background: var(--bg-secondary);
+      }
+      .mission-gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1rem;
+      }
+      .mission-gallery-grid a {
+        display: block;
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        aspect-ratio: 16/10;
+        background: var(--bg-card);
+      }
+      .mission-gallery-grid img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+      }
+      .mission-gallery-grid a:hover img {
+        transform: scale(1.05);
+      }
     </style>
     <!-- JSON-LD Structured Data: BreadcrumbList -->
     <script type="application/ld+json">
@@ -170,6 +196,7 @@
         <link rel="stylesheet" href="/static/css/navbar.css">
         <link rel="stylesheet" href="/static/css/responsive.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
     </noscript>
     <script>
         if ('serviceWorker' in navigator) {
@@ -227,6 +254,16 @@
                 </div>
             </div>
         </div>
+
+        <div class="mission-gallery">
+            <div class="container">
+                <div class="section-header">
+                    <p class="section-label">Gallery</p>
+                    <h2 class="section-title">Mission Photos</h2>
+                </div>
+                <div class="mission-gallery-grid" id="mission-gallery"></div>
+            </div>
+        </div>
     </main>
 
     <footer id="footer-placeholder" class="main-footer">
@@ -240,6 +277,7 @@
         </div>
 </footer>
     <script defer src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
     <script defer src="/static/js/theme.js"></script>
     <script defer src="/static/js/navigation.js"></script>
     <script defer src="/static/js/animations.js"></script>
@@ -324,6 +362,18 @@
           } else {
             const partnersCard = document.getElementById('mission-partners-card');
             if (partnersCard) partnersCard.style.display = 'none';
+          }
+
+          if (Array.isArray(info.images) && info.images.length) {
+            const gallery = document.getElementById('mission-gallery');
+            if (gallery) {
+              gallery.innerHTML = info.images.map(img =>
+                '<a href="/mission/' + mission.id + '/' + img + '" class="glightbox" data-gallery="mission-gallery"><img src="/mission/' + mission.id + '/' + img + '" alt="' + (mission.title || 'Mission') + '" loading="lazy"></a>'
+              ).join('');
+              if (typeof GLightbox !== 'undefined') {
+                GLightbox({ selector: '.glightbox', touchNavigation: true, loop: true });
+              }
+            }
           }
         } catch (e) {
           console.error('Failed to render mission:', e);
