@@ -9,9 +9,8 @@
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         console.log('[Main] DOM ready — initializing');
-        Components.init();
+        await Components.init();
 
-        // Report data loading status (non-blocking)
         DataLoader.loadAll();
 
         // Load data-driven content (only on pages with matching containers)
@@ -46,11 +45,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Load missions grid if present
         if (document.getElementById('missions-grid')) {
             await Missions.renderMissionsGrid('missions-grid');
-        }
-
-        // Load gallery if present (pure image grid)
-        if (document.getElementById('gallery-grid')) {
-            await Missions.renderGallery('gallery-grid');
         }
 
         // Load announcements if present
