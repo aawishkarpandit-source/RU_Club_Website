@@ -345,7 +345,6 @@ section.bg-secondary {
 
 .hero-subtitle {
     font-size: clamp(1.1rem, 2.2vw, 1.4rem);
-    color: var(--text-secondary);
     max-width: 700px;
     margin: 0 auto 3rem;
     font-weight: 400;
