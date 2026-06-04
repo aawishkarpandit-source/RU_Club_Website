@@ -91,9 +91,9 @@ const Missions = {
       const infoRes = await fetch(`/mission/${mission.id}/info.json`);
       const info = await infoRes.json();
 
-      container.innerHTML = info.images.map(img => `
+      container.innerHTML = info.images.map((img, i) => `
         <div class="swiper-slide">
-          <img src="/mission/${mission.id}/${img}" alt="${mission.title} - ${mission.description}" loading="lazy">
+          <img src="/mission/${mission.id}/${img}" alt="${mission.title} - ${mission.description}" loading="${i === 0 ? 'eager' : 'lazy'}" ${i === 0 ? 'fetchpriority="high"' : ''}>
         </div>
       `).join('');
 
