@@ -305,21 +305,22 @@
         }
 
         document.title = mission.title + ' | RU Club Motherland';
-        document.querySelector('meta[name="description"]').content = mission.detail.substring(0, 160);
+        document.querySelector('meta[name="description"]').content = (mission.detail || mission.description).substring(0, 160);
         document.querySelector('link[rel="canonical"]').href = '/mission?id=' + mission.slug;
         document.querySelector('meta[property="og:title"]').content = mission.title + ' | RU Club Motherland';
-        document.querySelector('meta[property="og:description"]').content = mission.detail.substring(0, 160);
+        document.querySelector('meta[property="og:description"]').content = (mission.detail || mission.description).substring(0, 160);
         document.querySelector('meta[property="og:url"]').content = '/mission?id=' + mission.slug;
         document.querySelector('meta[name="twitter:title"]').content = mission.title + ' | RU Club Motherland';
-        document.querySelector('meta[name="twitter:description"]').content = mission.detail.substring(0, 160);
+        document.querySelector('meta[name="twitter:description"]').content = (mission.detail || mission.description).substring(0, 160);
 
         document.getElementById('mission-tag').textContent = mission.tag;
         document.getElementById('mission-title').textContent = mission.title;
         document.getElementById('mission-date').textContent = mission.date;
-        document.getElementById('mission-description').textContent = mission.detail;
 
         const infoRes = await fetch('/mission/' + mission.id + '/info.json');
         const info = await infoRes.json();
+
+        document.getElementById('mission-description').textContent = info.detail || mission.description;
 
         if (info.stats) {
           const statsContainer = document.getElementById('mission-stats');
