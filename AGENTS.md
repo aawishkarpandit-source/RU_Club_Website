@@ -14,31 +14,42 @@ RU Club Motherland is a static HTML/CSS/JS site for an environmental sustainabil
 ## Architecture
 ```
 /                   → Root — config files only
-├── src/            → All source files (deployed via Vercel build)
+├── src/            → All source files (copied to root by Vercel build)
 │   ├── *.html          → All HTML pages (clean URLs)
 │   ├── static/
-│   │   ├── css/style.css   → Single CSS file
-│   │   ├── js/             → 12 JS modules
+│   │   ├── css/            → style.css, navbar.css, responsive.css
+│   │   ├── js/             → 13 JS modules (analytics, theme, navigation, animations,
+│   │   │                     carousel, forms, missions, announcements, data-loader,
+│   │   │                     components, gallery, mobile, main)
 │   │   └── assets/         → brand/, icons/, partners/, images/
-│   ├── info/               → JSON data (content, members, stats, site)
+│   ├── info/               → JSON data (content, members, stats, site, partners)
 │   ├── components/         → navbar.html + footer.html (loaded by components.js)
 │   ├── mission/            → Per-mission folders with images + info.json
 │   ├── announcements/      → Per-announcement JSON files
+│   ├── favicon.ico         → Multi-size ICO from logo_icon.png
 │   ├── robots.txt
 │   └── sitemap.xml
-├── .github/workflows/ → auto-mission.yml, auto-announcements.yml
-├── vercel.json        → Build command copies src/ to root, clean URLs
-├── _redirects         → Cloudflare Pages routing & redirects
+├── .github/workflows/ → fix-json.yml, auto-mission.yml, auto-announcements.yml,
+│                         optimize-images.yml (shared concurrency group)
+├── vercel.json        → Build: cp -r src/* . , cleanUrls, security headers, caching
+├── _redirects         → Cloudflare Pages routing & clean URLs
 ├── AGENTS.md
+├── README.md
 └── LICENSE
 ```
 
 ## Data Flow
-1. `components.js` fetches `/components/navbar.html` and `/components/footer.html` into placeholders
-2. `main.js` triggers data loading per page
-3. `missions.js` loads `/mission/list.json` then per-mission `/mission/[id]/info.json`
-4. `announcements.js` loads `/announcements/list.json` then per-announcement `/announcements/main/[id].json`
-5. `data-loader.js` loads stats, partners, members, content from `/info/*.json`
+1. `components.js` auto-inits on DOMContentLoaded — fetches `/info/site.json`, then loads navbar/footer HTML into placeholders. Idempotent (only runs once).
+2. `Theme.init()` sets light/dark mode from localStorage
+3. `Navigation.init(siteData)` renders nav links from site.json into desktop + mobile navs
+4. `main.js` (home/members/missions/contact only) triggers page-specific data rendering:
+   - Home: `DataLoader.renderStats()`, `renderPartners()`, `renderContent()`
+   - Members: `DataLoader.renderMembers()` for teachers/core/general
+   - Missions: `Missions.renderCarousel()` + `Carousel.initParkSwiper()`
+5. `missions.js` loads `/mission/list.json` then per-mission `/mission/[id]/info.json`
+6. `gallery.js` loads `/mission/list.json` + per-mission info.json, renders mission cards with image grids, inits GLightbox — auto-inits on DOMContentLoaded
+7. `announcements.js` loads `/announcements/list.json` then per-announcement JSONs — auto-inits on DOMContentLoaded (renders cards list on `/announcements` page, populates detail on `/announcement` page)
+8. `data-loader.js` provides cached fetchers for stats, partners, members, content from `/info/*.json` — only called when the matching container exists on the page
 
 ## Adding a New Mission
 1. Create folder: `src/mission/mission-NN/` (next sequential number)
@@ -59,17 +70,32 @@ RU Club Motherland is a static HTML/CSS/JS site for an environmental sustainabil
 - `.icon-current` class for icons that inherit text color
 - `.social-icon` class for brand-colored social media icons
 - All pages use clean URLs (no `.html` extension) — Vercel `cleanUrls` and Cloudflare `_redirects` handle routing
-- GA4 ID in `static/js/analytics.js:15` — single source of truth
+- GA4 ID in `static/js/analytics.js` — single source of truth
+- Cache-bust logo URLs with `?v=N` when logo file changes
 
 ## Build/Deploy
 - Build step: `vercel.json` runs `cp -r src/* .` to copy all source to root
 - Vercel auto-deploys from `main` branch
 - Cloudflare Pages auto-deploys from `main` branch
-- `vercel.json` configures build command, clean URLs, and caching
+- `vercel.json` configures build command, clean URLs, caching, security headers
 - `_redirects` configures clean URLs and trailing slash behavior for Cloudflare
 
 ## SEO
 - robots.txt, sitemap.xml (clean URLs), canonical URLs, OG/Twitter tags on all pages
 - JSON-LD structured data (Organization + WebSite) on all pages
 - All images have descriptive alt text + loading="lazy"
-- Root 404.html is self-contained styled page (absolute paths, handles all unknown routes)
+- favicon.ico at root with 5 sizes (16, 32, 48, 64, 128px)
+- Root 404.html is self-contained styled page
+
+## Page JS Module Loading
+Each HTML page only loads the JS modules it needs:
+- **index.html** (10): theme, navigation, animations, carousel, forms, missions, mobile, components, main, analytics
+- **members.html** (7): theme, navigation, animations, data-loader, mobile, components, main, analytics
+- **missions.html** (8): theme, navigation, animations, missions, data-loader, mobile, components, main, analytics
+- **mission.html** (10): theme, navigation, animations, carousel, forms, missions, data-loader, mobile, components, main, analytics
+- **gallery.html** (7): theme, navigation, animations, mobile, components, gallery, analytics
+- **announcements.html** (7): theme, navigation, animations, announcements, mobile, components, analytics
+- **announcement.html** (7): theme, navigation, animations, announcements, mobile, components, analytics
+- **contact.html** (8): theme, navigation, animations, forms, mobile, components, main, analytics
+- **light pages** (privacy, license, consent, success, failed, 404): analytics only
+- **secret-garden.html**: all inline JS, no external modules

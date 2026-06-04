@@ -53,6 +53,7 @@ const Navigation = {
         const open = () => {
             mobileMenu.classList.add('active');
             mobileMenu.setAttribute('aria-hidden', 'false');
+            mobileMenu.removeAttribute('inert');
             menuBtn.setAttribute('aria-expanded', 'true');
             if (overlay) overlay.classList.add('active');
         };
@@ -60,6 +61,7 @@ const Navigation = {
         const close = () => {
             mobileMenu.classList.remove('active');
             mobileMenu.setAttribute('aria-hidden', 'true');
+            mobileMenu.setAttribute('inert', '');
             menuBtn.setAttribute('aria-expanded', 'false');
             if (overlay) overlay.classList.remove('active');
         };
@@ -121,6 +123,7 @@ const Navigation = {
                     if (mobileMenu) {
                         mobileMenu.classList.remove('active');
                         mobileMenu.setAttribute('aria-hidden', 'true');
+                        mobileMenu.setAttribute('inert', '');
                     }
                     if (overlay) overlay.classList.remove('active');
                     if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');

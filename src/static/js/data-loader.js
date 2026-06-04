@@ -37,9 +37,10 @@ const DataLoader = {
     if (!container) return;
     const partners = await this.getPartners();
     if (!partners) return;
-    container.innerHTML = partners.map(p => `<div class="partner-card">
+    const card = p => `<div class="partner-card">
       <img src="${p.src}" alt="${p.alt}" loading="lazy">
-    </div>`).join('');
+    </div>`;
+    container.innerHTML = [...partners, ...partners, ...partners].map(card).join('');
   },
 
   async renderMembers(containerId, group) {

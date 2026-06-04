@@ -85,3 +85,9 @@ const Announcements = {
     `}).join('');
   }
 };
+
+document.addEventListener('DOMContentLoaded', async () => {
+  if (document.getElementById('announcements-list')) {
+    await Announcements.renderCards('announcements-list');
+  }
+});

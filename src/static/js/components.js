@@ -3,6 +3,8 @@ const Components = {
     siteData: null,
 
     async init() {
+        if (this._initialized) return;
+        this._initialized = true;
         await this.loadSiteData();
         this.injectCookieConsent();
         await this.loadComponents();
