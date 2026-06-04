@@ -261,6 +261,9 @@
         padding: 1.5rem 0 !important;
         background: white !important;
     }
+    .partners-track-wrap {
+        padding: 0.75rem 0 !important;
+    }
     .hero {
         min-height: auto !important;
         padding-top: 1rem !important;

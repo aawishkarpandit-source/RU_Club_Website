@@ -42,10 +42,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             await Missions.renderMissionsGrid('missions-grid');
         }
 
-        if (document.getElementById('announcements-list')) {
-            await Announcements.renderCards('announcements-list');
-        }
-
         if (document.getElementById('stat-missions')) {
             await Missions.updateStats();
         }

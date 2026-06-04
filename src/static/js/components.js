@@ -3,11 +3,14 @@ const Components = {
     siteData: null,
 
     async init() {
-        if (this._initialized) return;
-        this._initialized = true;
+        if (this._initPromise) return this._initPromise;
+        this._initPromise = this._doInit();
+        return this._initPromise;
+    },
 
+    async _doInit() {
         // Cache-bust on version change
-        const VERSION = '1.0.1';
+        const VERSION = '1.1.0';
         const stored = localStorage.getItem('ruclub-version');
         if (stored !== VERSION) {
             localStorage.setItem('ruclub-version', VERSION);
