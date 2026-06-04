@@ -146,6 +146,25 @@ const Forms = {
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
+
+            // Rate limiting: 1 minute between submissions
+            const lastSubmit = localStorage.getItem('last_form_submit');
+            if (lastSubmit) {
+                const elapsed = Date.now() - parseInt(lastSubmit);
+                if (elapsed < 60000) {
+                    const remaining = Math.ceil((60000 - elapsed) / 1000);
+                    this.trackEvent('form_rate_limited', { remaining_seconds: remaining });
+                    btn = form.querySelector('.btn-submit');
+                    btn.textContent = `Wait ${remaining}s`;
+                    btn.disabled = true;
+                    setTimeout(() => {
+                        btn.disabled = false;
+                        btn.textContent = 'Send Message';
+                    }, remaining * 1000);
+                    return;
+                }
+            }
+
             const btn = form.querySelector('.btn-submit');
             const inputs = form.querySelectorAll('input, textarea');
             
@@ -200,6 +219,7 @@ const Forms = {
                     email_domain: data.email.split('@')[1]
                 });
 
+                localStorage.setItem('last_form_submit', Date.now().toString());
                 this.storeSubmission(data);
 
                 setTimeout(() => {
